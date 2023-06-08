@@ -1,20 +1,9 @@
 import sqlalchemy as sq
 from sqlalchemy.orm import declarative_base, Session
 from sqlalchemy import MetaData, create_engine
-import os
-from dotenv import load_dotenv
+from settings import DSN
 
-load_dotenv()
-
-conn_driver = os.getenv('conn_driver')
-login = os.getenv('login')
-password = os.getenv('password')
-host = os.getenv('host')
-port = os.getenv('port')
-db = os.getenv('db')
-DSN = f'{conn_driver}://{login}:{password}@{host}:{port}/{db}'
-
-engine = sq.create_engine(DSN)
+engine = create_engine(DSN)
 
 metadata = MetaData()
 Base = declarative_base()

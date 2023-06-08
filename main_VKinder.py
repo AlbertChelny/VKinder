@@ -1,15 +1,10 @@
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
-import os
-from dotenv import load_dotenv
 from backend_VKinder import VkTools
-from database_VKinder import *
+from database_VKinder import create_engine, Base, add_user, check_user
 from datetime import datetime
-
-load_dotenv()
-token_vg = os.getenv('token_vk_group')
-token_vu = os.getenv('token_vk_user')
+from settings import token_vg, token_vu, DSN
 
 
 class VKinder():
@@ -92,8 +87,8 @@ class VKinder():
                 if command == 'привет':
                     self.message_send(event.user_id, f'Приятно познакомиться,  {self.params["name"]}!')
 
-                    if self.params['bdate'] == datetime.now().year:
-                        text = f'{self.params["name"]} напишите Ваш год рождения.\n'
+                    if self.params['bdate'] == '0':
+                        text = f'{self.params["name"]} напишите сколько Вам лет.\n'
                         year = self.event_message(event.user_id, text)
                         self.params['bdate'] = int(year)
 

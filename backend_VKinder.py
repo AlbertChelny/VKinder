@@ -1,11 +1,7 @@
 from datetime import datetime
 import vk_api
 from vk_api.exceptions import ApiError
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-token_vu = os.getenv('token_vk_user')
 
 class VkTools():
     def __init__(self, token_vu):
@@ -15,9 +11,10 @@ class VkTools():
         now = datetime.now().year
         if len(bdate.split('.')) == 3:
             user_year = bdate.split('.')[2]
+            return now - int(user_year)
         else:
             user_year = '0'
-        return now - int(user_year)
+            return user_year
 
     def get_profile_info(self, user_id):
         try:
